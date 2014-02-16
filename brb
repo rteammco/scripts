@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Print simple BRB (be right back) message on the screen
+
+clear
+printf "\n"
+echo "     BBBBBB     RRRRRR     BBBBBB"
+echo "     B     B    R     R    B     B"
+echo "     B      B   R      R   B      B"
+echo "     B      B   R      R   B      B"
+echo "     B     B    R     R    B     B"
+echo "     BBBBBB     RRRRRR     BBBBBB"
+echo "     B     B    R    R     B     B"
+echo "     B      B   R     R    B      B"
+echo "     B      B   R      R   B      B"
+echo "     B     B    R       R  B     B"
+echo "     BBBBBB     R       R  BBBBBB"
+printf "\n"
+echo "         I will BE RIGHT BACK!!"
+printf "\n"
