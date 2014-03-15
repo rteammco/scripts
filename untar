@@ -1,4 +1,4 @@
 #!/bin/bash
 
-# To untar a file, since I keep forgetting the option letters.
-tar xvzf $@
+# To untar a file and silence output.
+tar xvzf $@ > /dev/null
