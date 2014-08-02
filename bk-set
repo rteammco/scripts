@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Saves the path of the current directory into the bkdir file.
+SCRIPTDIR=`scriptdir`
+if [ -e "$SCRIPTDIR/bkdir" ];
+then
+    LASTDIR=`cat $SCRIPTDIR/bkdir`
+fi
+CURRDIR=`pwd`
+if [ "$LASTDIR" != "$CURRDIR" ];
+then
+    pwd > `scriptdir`/bkdir;
+fi
