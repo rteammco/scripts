@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Calls the commands to initially push the working directory's git repo to
+# GitHub for the first time. It will set up remote, default push and pull to
+# origin, and push for the first time.
+# Usage (account name is optional):
+# $ github-init REPO [ACCOUNT]
+
+ACCOUNT=teammcr192
+
+# make sure argument is given for repository name
+if [ $# -eq 0 ];
+then
+    echo "Please provide a GitHub remote directory.";
+    exit;
+fi
+
+# if two (or more) args are given, assume the second is an account name
+if [ $# -ge 2 ];
+then
+    ACCOUNT=$2;
+fi
+
+# call the git commands to add remote and push
+git remote add origin git@github.com:$ACCOUNT/$1.git
+git push --set-upstream origin master
