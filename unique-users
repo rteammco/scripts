@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# get all users
+all=(`users`)
+
+# only keep unique entries in the array. Source:
+# http://stackoverflow.com/questions/13648410/how-can-i-get-unique-values-from-an-array-in-linux-bash
+unique=($(tr ' ' '\n' <<< "${all[@]}" | sort -u | tr '\n' ' '))
+
+# count and echo the number of elements
+echo "${#unique[@]}"
+
+# scrap
+#for name in "${unique[@]}"
+#do
+#    echo $name
+#done
