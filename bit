@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Prints a more elegant version of uname -m to display if this is a 64 or
+# 32 bit system.
+
+out=`uname -m`
+if [[ $out == *64* ]];
+then
+    echo "This is a 64-bit system.";
+else
+    echo "This is a 32-bit system. Eew!";
+fi
