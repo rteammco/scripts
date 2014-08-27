@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Prints basic instructions on using the given command.
+
+dir=Iremember
+
+# make sure argument is provided
+cmd=$1
+if [ -z "$cmd" ];
+then
+    echo "To use THIS command, run ./iforgot cmd (e.g. 'iforgot mail')";
+    exit;
+fi
+
+# check that file exists
+if [ -a "$dir/$cmd" ];
+then
+    echo;
+    echo "This is how you use '$cmd':";
+    echo;
+    cat `scriptdir`/$dir/$cmd;
+    echo;
+else
+    echo "I don't have an entry for '$cmd'.";
+    exit;
+fi
+

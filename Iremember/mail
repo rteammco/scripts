@@ -1,0 +1,3 @@
+Run the following command:
+ $ mailx -s subject to_address
+Then type your message. Press ctrl+D to finish.
