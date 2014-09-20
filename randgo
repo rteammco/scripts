@@ -1,10 +1,23 @@
 #!/bin/bash
 
+# common variables
+username="teammco"
+address=".cs.utexas.edu"
+
 # get the list of available unix machines, and set up variables
-wget http://apps.cs.utexas.edu/unixlabstatus/ -O /tmp/unix_list 2> /dev/null
+OS=`uname`
+# OS X:
+if [[ $OS == 'Darwin' ]]; then
+    curl "http://apps.cs.utexas.edu/unixlabstatus/" -o "/tmp/unix_list" 2> /dev/null
+# Linux:
+else
+    wget http://apps.cs.utexas.edu/unixlabstatus/ -O /tmp/unix_list 2> /dev/null
+fi
+
 next=0
 counter=4
 hosts=()
+
 
 # read from /tmp/unix_list html page and parse it
 while read line; do
@@ -62,4 +75,4 @@ rm /tmp/unix_list
 
 # ssh into one of the hosts that has zero users
 selection=${hosts[$RANDOM % ${#hosts[@]}]}
-ssh $selection
+ssh $username@$selection$address
