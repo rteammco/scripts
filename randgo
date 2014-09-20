@@ -75,4 +75,4 @@ rm /tmp/unix_list
 
 # ssh into one of the hosts that has zero users
 selection=${hosts[$RANDOM % ${#hosts[@]}]}
-ssh $username@$selection$address
+ssh $@ $username@$selection$address
