@@ -1,0 +1,4 @@
+Zip all files in this directory into data.zip:
+  $ zip data *
+Zip all files in another directory into data.zip (recursive):
+  $ zip -r data ./otherdir

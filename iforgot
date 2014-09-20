@@ -13,7 +13,7 @@ then
 fi
 
 # check that file exists
-if [ -a "$dir/$cmd" ];
+if [ -a "`scriptdir`/$dir/$cmd" ];
 then
     echo;
     echo "This is how you use '$cmd':";

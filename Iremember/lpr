@@ -1,0 +1,19 @@
+Print a single document on printer x:
+  $ lpr -Px doc.ext
+
+For example:
+  $ lpr -Plw302 homework.pdf
+
+Print n copies (up to 100):
+  $ lpr -Px -#n doc.ext
+
+View all queued print jobs (specify printer x):
+  $ lpq -Px
+
+This will give you a list. You can cancel a job by its number ##:
+  $ lprm -Px ##
+
+For example (print, view queue, cancel the job):
+  $ lpr -Plw302 homework.pdf
+  $ lpq -Plw302
+  $ lprm -Plw302 330
