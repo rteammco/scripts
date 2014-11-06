@@ -1,78 +1,10 @@
 #!/bin/bash
 
-# common variables
+# Calls 'randcs' to get the name of a random available UTCS host machine,
+# and does ssh into it with the provided username.
+# Any arguments passed in will be forwarded to the ssh call.
+
 username="teammco"
-address=".cs.utexas.edu"
 
-# get the list of available unix machines, and set up variables
-OS=`uname`
-# OS X:
-if [[ $OS == 'Darwin' ]]; then
-    curl "http://apps.cs.utexas.edu/unixlabstatus/" -o "/tmp/unix_list" 2> /dev/null
-# Linux:
-else
-    wget http://apps.cs.utexas.edu/unixlabstatus/ -O /tmp/unix_list 2> /dev/null
-fi
-
-next=0
-counter=4
-hosts=()
-
-
-# read from /tmp/unix_list html page and parse it
-while read line; do
-
-    # if next is set, that means the next item is a hostname, so parse it
-    if [ "$next" -ne 0 ]; then
-        next=0
-        # lines w/ hostnames start with <tr style="background: ...
-        part=${line:4:11}
-        if [ "$part" = 'style="back' ]; then
-            # cut away 56 or 57 chars, depending on the line length
-            cut=56
-            bit=${line:$cut:1}
-            if [ "$bit" = '>' ]; then
-                cut=57
-            fi
-            part=${line:$cut}
-            # cut away the last 5 characters
-            len=`expr ${#part} - 5`
-            # we're now left with just the hostname, so start the counter
-            host=${part:0:$len}
-            counter=0
-        fi
-    fi
-
-    # if counter is <= 3, that means we're waiting on number of users line
-    if [ "$counter" -le 3 ]; then
-        counter=`expr $counter + 1`
-        # if we waited 4 lines, this is the number-of-users line
-        if [ "$counter" -eq 4 ]; then
-            # cut away all the scrap, leaving only the number
-            cut=`expr $cut + 2`
-            part=${line:$cut}
-            len=`expr ${#part} - 5`
-            num=${part:0:$len}
-            # make sure we're getting a valid number first
-            regex='^[0-9]+$'
-            if [[ $num =~ $regex ]]; then
-                # then if number of users is 0, add it to the list
-                if [ "$num" -eq 0 ]; then
-                    hosts+=("$host")
-                fi
-            fi
-        fi
-    fi
-
-    # if line starts with '<tr>', that means the next line mightbe a hostname
-    if [ "$line" = '<tr>' ]; then
-        next=1
-    fi
-done < <(cat /tmp/unix_list)
-
-# clean up
-rm /tmp/unix_list
-
-# ssh into one of the hosts that has zero users
-selection=${hosts[$RANDOM % ${#hosts[@]}]}
-ssh $@ $username@$selection$address
+host=`randcs`
+ssh $@ $username@$host
