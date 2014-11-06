@@ -1,0 +1,6 @@
+#/bin/bash
+
+# mecs will produce the output "me@`randcs` where `me` is just my
+# username, and `randcs` a random UTCS machine.
+
+echo teammco@`randcs`

@@ -6,5 +6,4 @@
 
 username="teammco"
 
-host=`randcs`
-ssh $@ $username@$host
+ssh $@ `mecs`

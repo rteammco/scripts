@@ -4,6 +4,9 @@
 # Use that host name to ssh or do other operations on that (available)
 # machine.
 
+# TODO - cachning the list until a parameter to find a free machine passed
+
+
 address=".cs.utexas.edu"
 
 # get the list of available unix machines, and set up variables
