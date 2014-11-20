@@ -1,0 +1,4 @@
+Firefox not starting up (profile locked)?
+  cd ~/.mozilla/firefox/syfucuwj.default
+  rm lock
+  rm .parentlock
