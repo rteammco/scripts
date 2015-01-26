@@ -1,1 +1,4 @@
 find DIR -name FILE_REGEX
+
+To suppress "permission" spam, add this to the end: 2>/dev/null
+To quit after first hit, add this to the end: -quit
