@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# This script runs "find" on the given regex value, and searches / (root)
+# for any hits. It also automatically supressed the "permission" spam.
+
+if [ $# -eq 0 ]; then
+    echo "Please provide a file name.";
+    exit;
+fi
+echo "Looking for \"$1\"..."
+find / -name "$1" 2>/dev/null
