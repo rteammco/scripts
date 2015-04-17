@@ -4,4 +4,5 @@
 # directory in /scratch/cluster/$username (username = your user id)
 
 num=$(($RANDOM % 10))
-ssh -t `whoami`@uvanimor-"$num".cs.utexas.edu "cd /scratch/cluster/`whoami`; echo 'You are here: `pwd`'; bash"
+me=`whoami`
+ssh -t "$me"@uvanimor-"$num".cs.utexas.edu "cd /scratch/cluster/$me; echo 'You are here: /scratch/cluster/$me'; bash"
