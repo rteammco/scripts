@@ -1,3 +1,0 @@
-#!/bin/bash
-
-/lusr/opt/condor/bin/condor_q -g -submitter `whoami`
