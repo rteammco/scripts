@@ -4,4 +4,4 @@
 # directory in /scratch/cluster/$username (username = your user id)
 
 num=`shuf -i 0-9 -n 1`
-ssh -t uvanimor-$num "cd /scratch/cluster/`whoami`; echo 'You are here: `pwd`'; bash"
+ssh -t `whoami`@uvanimor-"$num".cs.utexas.edu "cd /scratch/cluster/`whoami`; echo 'You are here: `pwd`'; bash"
