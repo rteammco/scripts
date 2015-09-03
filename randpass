@@ -1,0 +1,58 @@
+#!/usr/bin/python
+
+# Generates a random set of potential passwords. Since the passwords are
+# random, they are probably more secure than human-made passwords.
+
+import argparse
+import random
+
+# Set up default values for the number of passwords to be generated, and the
+# minimum and maximum number of characters each password will have.
+min_len = 12
+max_len = 20
+num_passwords = 100
+
+# Generate a list of all lowercase letters (a-z).
+all_lwr = []
+for i in range(26):
+  all_lwr.append(chr(ord('a') + i))
+
+# Get a list of all uppercase letters (A-Z).
+all_upp = map(str.upper, all_lwr)
+
+# Create a list of all symbols that can be added to the passwords.
+all_sym = ['!', '@', '#', '$', '%',
+#           '^', '&', '*', '(', ')',
+           '-', '_', '+', '=',
+           '.', '?']
+
+# Merge the lists into a pool of potential characters to use.
+everything = all_lwr + all_upp + all_sym
+
+def generate_passwords():
+  """Generate the random passwords based on the parameters."""
+  for i in range(num_passwords):
+    size = random.randint(min_len, max_len)
+    candidate = ''
+    for j in range(size):
+      idx = random.randint(0, len(everything) - 1)
+      candidate += everything[idx]
+    print candidate
+
+if __name__ == '__main__':
+  # process args, and generate passwords
+  parser = argparse.ArgumentParser()
+  parser.add_argument('--num', dest='num_passwords', type=int, required=False)
+  parser.add_argument('--min', dest='min_len', type=int, required=False)
+  parser.add_argument('--max', dest='max_len', type=int, required=False)
+  args = parser.parse_args()
+  if args.num_passwords:
+    num_passwords = args.num_passwords
+  if args.min_len:
+    min_len = args.min_len
+  if args.max_len:
+    max_len = args.max_len
+  if min_len > max_len:
+    print 'Max password length must be larger or equal to the min length.'
+    exit(0)
+  generate_passwords()
