@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# This script reports some system information.
+# Inspired by:
+#   https://github.com/lutherush/scripts/blob/master/bash/sysinfo.sh
+# TODO: only works on Linux right now. Make it work on OS X as well.
+
+# System info:
+os=`uname -sr | awk '{print $1}'`
+cpu=`cat /proc/cpuinfo | grep 'model name' | head -1 | awk '{for (i=4; i<=NF; i++) printf $i " ";}'`
+arch=`uname -m`
+ncores=`cat /proc/cpuinfo | grep 'processor' | tail -1 | awk '{print $3+1}'`
+hostname=`uname -n`
+
+# Figure out memory:
+mem_cache=`free -m | grep 'cache:'`
+used_mem_mb=`echo $mem_cache | awk '{print $3}'`
+free_mem_mb=`echo $mem_cache | awk '{print $4}'`
+
+echo "$hostname ($os)"
+echo "$cpu($arch) - $ncores cores"
+echo "Memory: $used_mem_mb MB used, $free_mem_mb MB free."
