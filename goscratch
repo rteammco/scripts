@@ -3,5 +3,6 @@
 # ssh into a random uvanimor machine and immediately go to the scratch
 # directory in /scratch/cluster/$username (username = your user id)
 
-num=`shuf -i 0-9 -n 1`
-ssh -t uvanimor-$num "cd /scratch/cluster/`whoami`; echo 'You are here: `pwd`'; bash"
+num=$(($RANDOM % 10))
+me=teammco
+ssh -t "$me"@uvanimor-"$num".cs.utexas.edu "cd /scratch/cluster/$me; echo 'You are here: /scratch/cluster/$me'; bash"

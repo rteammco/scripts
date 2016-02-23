@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Runs an SCP command from the selected file to a random UTCS machine.
+# Uses other scripts to resolve IP and username.
+
+scp $1 `mecs`:~/Desktop/Prints
+
+#TODO - ssh & lpr also!
