@@ -10,6 +10,7 @@ os=`uname -sr | awk '{print $1}'`
 cpu=`cat /proc/cpuinfo | grep 'model name' | head -1 | awk '{for (i=4; i<=NF; i++) printf $i " ";}'`
 arch=`uname -m`
 ncores=`cat /proc/cpuinfo | grep 'processor' | tail -1 | awk '{print $3+1}'`
+gpu=`lspci | grep 'VGA' | head -1 | awk '{for (i=5; i<=NF; i++) printf $i " ";}'`
 hostname=`uname -n`
 
 # Figure out memory:
@@ -18,5 +19,6 @@ used_mem_mb=`echo $mem_cache | awk '{print $3}'`
 free_mem_mb=`echo $mem_cache | awk '{print $4}'`
 
 echo "$hostname ($os)"
-echo "$cpu($arch) - $ncores cores"
-echo "Memory: $used_mem_mb MB used, $free_mem_mb MB free."
+echo "CPU: $cpu($arch) - $ncores cores"
+echo "GPU: $gpu"
+echo "Mem: $used_mem_mb MB used, $free_mem_mb MB free."
