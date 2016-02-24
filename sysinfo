@@ -5,8 +5,14 @@
 #   https://github.com/lutherush/scripts/blob/master/bash/sysinfo.sh
 # TODO: only works on Linux right now. Make it work on OS X as well.
 
-# System info:
+
 os=`uname -sr | awk '{print $1}'`
+if [ $os == 'Darwin' ]; then
+  echo "This script doesn't support OS X :(";
+  exit;
+fi
+
+# System info:
 cpu=`cat /proc/cpuinfo | grep 'model name' | head -1 | awk '{for (i=4; i<=NF; i++) printf $i " ";}'`
 arch=`uname -m`
 ncores=`cat /proc/cpuinfo | grep 'processor' | tail -1 | awk '{print $3+1}'`
