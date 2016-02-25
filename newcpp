@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -z $1 ]; then
+  echo "Please provide a file name.";
+  exit;
+fi
+
+# Create the file and add the standard template into it.
+touch $1
+cat `scriptdir`/Templates/main.cpp > $1
