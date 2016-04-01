@@ -1,0 +1,5 @@
+ssh domain -p port_num
+
+Ports are:
+  CVC Macs: 22022
+  CVC Linux: 8704
