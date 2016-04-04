@@ -2,7 +2,7 @@
 
 # Prints basic instructions on using the given command.
 
-dir=Iremember
+dir=Data/Iremember
 
 # make sure argument is provided
 cmd=$1

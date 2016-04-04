@@ -2,12 +2,13 @@
 
 # Saves the path of the current directory into the bkdir file.
 SCRIPTDIR=`scriptdir`
-if [ -e "$SCRIPTDIR/bkdir" ];
+BK_FILE=Data/bkdir
+if [ -e "$SCRIPTDIR/$BK_FILE" ];
 then
-    LASTDIR=`cat $SCRIPTDIR/bkdir`
+    LASTDIR=`cat $SCRIPTDIR/$BK_FILE`
 fi
 CURRDIR=`pwd`
 if [ "$LASTDIR" != "$CURRDIR" ];
 then
-    pwd > `scriptdir`/bkdir;
+    pwd > `scriptdir`/$BK_FILE;
 fi
