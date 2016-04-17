@@ -1,0 +1,14 @@
+To activate:
+  $ source activate NAME_OF_ENV
+
+To deactivate:
+  $ deactivate
+
+To make a new environment (adjust version number as needed):
+  $ conda create -n NAME_OF_ENV python=2.7
+
+To list all environments:
+  $ conda info --envs
+
+To remove an environment:
+  $ conda remove --name NAME_OF_ENV --all
