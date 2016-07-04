@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# ssh into a random uvanimor machine and immediately go to the scratch
-# directory in /scratch/cluster/$username (username = your user id)
-
-num=$(($RANDOM % 10))
-me=teammco
-ssh -t "$me"@uvanimor-"$num".cs.utexas.edu "cd /scratch/cluster/$me; echo 'You are here: /scratch/cluster/$me'; bash"
