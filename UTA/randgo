@@ -4,6 +4,8 @@
 # and does ssh into it with the provided username.
 # Any arguments passed in will be forwarded to the ssh call.
 
-username="teammco"
+uta_path=`scriptdir`/UTA
+login=`$uta_path/mecs`
 
-ssh $@ `mecs`
+echo "Logging in to: $login"
+ssh $@ $login

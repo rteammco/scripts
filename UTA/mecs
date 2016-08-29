@@ -3,4 +3,7 @@
 # mecs will produce the output "me@`randcs` where `me` is just my
 # username, and `randcs` a random UTCS machine.
 
-echo teammco@`randcs`
+uta_path=`scriptdir`/UTA
+me=`cat $uta_path/NonExecutable/username.txt`
+
+echo $me@`$uta_path/randcs`
