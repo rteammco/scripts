@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Access a CVC lab computer on the right port number.
+#
+# NOTE: the port numbers must be added manually to the directory
+# Scripts/UTA/NonExecutable/cvcports so that they are not made public. This
+# file should contain two numbers (whitespace delimited): the regular port
+# number followed by the Mac port number.
+#
+# Similarly, define a file containing the CVC Mac hosts in
+# Scripts/UTA/NonExecutable/machosts. If this file does not exists or is empty,
+# this script will assume all machines are Linux and will use the Linux port.
+
+data_path=`scriptdir`/UTA/NonExecutable
+port_file=$data_path/cvcports
+
+# Make sure the port file exists.
+if [ ! -f $port_file ]; then
+  echo "ERROR: file $port_file not found. Please create it!"
+  exit
+fi
+
+# Make sure a host is specified.
+if [ -z "$1" ]; then
+  echo "ERROR: please provide a host machine name."
+  exit
+fi
+
+# Get the Linux and Mac ports.
+port_nums=`cat $port_file`
+port_nums=(${port_nums})
+linux_port=${port_nums[0]}
+mac_port=${port_nums[1]}
+
+# Get all mac hosts:
+macs_file=$data_path/cvcmachosts
+if [ -f $macs_file ]; then
+  mac_hosts=`cat $macs_file`
+  mac_hosts=(${mac_hosts})
+fi
+
+# src: http://stackoverflow.com/questions/3685970/check-if-an-array-contains-a-value
+if [[ " ${mac_hosts[@]} " =~ " $1 " ]]; then
+  # if array of Mac hosts contains the given host, it's a Mac port.
+  port_num=$mac_port
+else
+  port_num=$linux_port
+fi
+
+me=`cat $data_path/username.txt`
+login="$me@$1.ices.utexas.edu -p $port_num"
+
+echo "Logging in to: $login"
+ssh $login
