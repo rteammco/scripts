@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# scp to a CVC lab computer on the right port number.
+#
+# Usage:
+#   cvcscp path/to/local/src path/to/remote/dest hostname
+#
+# E.g.
+#   cvcscp ~/Desktop/notes.txt ~/Documents/Work/notes.txt computer1
+
+# Make sure a src, dest, and host are specified.
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+  echo "ERROR: please provide a src, dest, and host machine name."
+  echo "Usage:"
+  echo "  $ cvcscp <path/to/local/src/file> <path/to/remove/file> <remote_host>"
+  exit
+fi
+
+# Make sure that the dest starts with ":" because bash...
+if [[ $2 != :* ]]; then
+  echo "Please begin the dest variable with a ':'... because bash, sorry!";
+  exit
+fi
+
+port_num=`cvc-get-port $3`
+
+data_path=`scriptdir`/UTA/NonExecutable
+me=`cat $data_path/username.txt`
+login="$me@$3.ices.utexas.edu"
+
+echo "Copying '$1' to '$2' on $login..."
+copy_cmd="-P $port_num $1 $login$2"
+scp $copy_cmd

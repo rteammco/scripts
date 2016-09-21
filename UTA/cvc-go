@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Access a CVC lab computer on the right port number.
+
+# Make sure a host is specified.
+if [ -z "$1" ]; then
+  echo "ERROR: please provide a host machine name."
+  exit
+fi
+
+port_num=`cvc-get-port $1`
+
+data_path=`scriptdir`/UTA/NonExecutable
+me=`cat $data_path/username.txt`
+login="$me@$1.ices.utexas.edu -p $port_num"
+
+echo "Logging in to: $login"
+ssh $login

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Access a CVC lab computer on the right port number.
+# Returns the port number for the given host.
 #
 # NOTE: the port numbers must be added manually to the directory
 # Scripts/UTA/NonExecutable/cvcports so that they are not made public. This
@@ -17,12 +17,6 @@ port_file=$data_path/cvcports
 # Make sure the port file exists.
 if [ ! -f $port_file ]; then
   echo "ERROR: file $port_file not found. Please create it!"
-  exit
-fi
-
-# Make sure a host is specified.
-if [ -z "$1" ]; then
-  echo "ERROR: please provide a host machine name."
   exit
 fi
 
@@ -47,8 +41,5 @@ else
   port_num=$linux_port
 fi
 
-me=`cat $data_path/username.txt`
-login="$me@$1.ices.utexas.edu -p $port_num"
-
-echo "Logging in to: $login"
-ssh $login
+# Print the port number.
+echo $port_num
