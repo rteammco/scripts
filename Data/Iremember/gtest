@@ -1,0 +1,5 @@
+Run a specific test:
+  $ bin/Test --gtest_filter=TestModule.TestName
+
+Run all tests for a module:
+  $ bin/Test --gtest_filter=TestModule.*
