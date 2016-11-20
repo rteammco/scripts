@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Prints the number of logical cores in this system. There is a different
+# command for macOS and Linux.
+
+os=`uname -sr | awk '{print $1}'`
+
+if [ $os == 'Darwin' ]; then
+  echo `sysctl -n hw.ncpu`
+else
+  echo `cat /proc/cpuinfo | grep 'processor' | tail -1 | awk '{print $3+1}'`
+fi

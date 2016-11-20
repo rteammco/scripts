@@ -11,7 +11,7 @@ function sysinfo_linux {
   # Basic system info:
   cpu=`cat /proc/cpuinfo | grep 'model name' | head -1 | awk '{for (i=4; i<=NF; i++) printf $i " ";}'`
   arch=`uname -m`
-  ncores=`cat /proc/cpuinfo | grep 'processor' | tail -1 | awk '{print $3+1}'`
+  ncores=`num-proc-cores`
   gpu=`lspci | grep 'VGA' | head -1 | awk '{for (i=5; i<=NF; i++) printf $i " ";}'`
   hostname=`uname -n`
   
@@ -30,7 +30,7 @@ function sysinfo_macos {
   # Basic system info:
   cpu=`sysctl -n machdep.cpu.brand_string | awk '{for (i=1; i<=NF; i++) printf $i " ";}'`
   arch=`uname -m`
-  ncores=`sysctl -n hw.ncpu`
+  ncores=`num-proc-cores`
   gpu="???"  # TODO!
   hostname=`uname -n`
 
