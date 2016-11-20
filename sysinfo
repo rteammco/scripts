@@ -3,28 +3,50 @@
 # This script reports some system information.
 # Inspired by:
 #   https://github.com/lutherush/scripts/blob/master/bash/sysinfo.sh
-# TODO: only works on Linux right now. Make it work on OS X as well.
 
 
 os=`uname -sr | awk '{print $1}'`
+
+function sysinfo_linux {
+  # Basic system info:
+  cpu=`cat /proc/cpuinfo | grep 'model name' | head -1 | awk '{for (i=4; i<=NF; i++) printf $i " ";}'`
+  arch=`uname -m`
+  ncores=`cat /proc/cpuinfo | grep 'processor' | tail -1 | awk '{print $3+1}'`
+  gpu=`lspci | grep 'VGA' | head -1 | awk '{for (i=5; i<=NF; i++) printf $i " ";}'`
+  hostname=`uname -n`
+  
+  # Figure out memory:
+  mem_cache=`free -m | grep 'cache:'`
+  used_mem_mb=`echo $mem_cache | awk '{print $3}'`
+  free_mem_mb=`echo $mem_cache | awk '{print $4}'`
+  
+  echo "$hostname ($os) - Linux"
+  echo "CPU: $cpu($arch) - $ncores cores"
+  echo "GPU: $gpu"
+  echo "Mem: $used_mem_mb MB used, $free_mem_mb MB free."
+}
+
+function sysinfo_macos {
+  # Basic system info:
+  cpu=`sysctl -n machdep.cpu.brand_string | awk '{for (i=1; i<=NF; i++) printf $i " ";}'`
+  arch=`uname -m`
+  ncores=`sysctl -n hw.ncpu`
+  gpu="???"  # TODO!
+  hostname=`uname -n`
+
+  # Memory:
+  phys_mem=`top -l 1 -s 0 | grep PhysMem`
+  used_mem=`echo $phys_mem | awk '{print $2}'`
+  free_mem=`echo $phys_mem | awk '{print $6}'`
+
+  echo "$hostname ($os) - macOS, OS X"
+  echo "CPU: $cpu($arch) - $ncores cores"
+  echo "GPU: $gpu"
+  echo "Mem: $used_mem used, $free_mem free."
+}
+
 if [ $os == 'Darwin' ]; then
-  echo "This script doesn't support OS X :(";
-  exit;
+  sysinfo_macos
+else
+  sysinfo_linux
 fi
-
-# System info:
-cpu=`cat /proc/cpuinfo | grep 'model name' | head -1 | awk '{for (i=4; i<=NF; i++) printf $i " ";}'`
-arch=`uname -m`
-ncores=`cat /proc/cpuinfo | grep 'processor' | tail -1 | awk '{print $3+1}'`
-gpu=`lspci | grep 'VGA' | head -1 | awk '{for (i=5; i<=NF; i++) printf $i " ";}'`
-hostname=`uname -n`
-
-# Figure out memory:
-mem_cache=`free -m | grep 'cache:'`
-used_mem_mb=`echo $mem_cache | awk '{print $3}'`
-free_mem_mb=`echo $mem_cache | awk '{print $4}'`
-
-echo "$hostname ($os)"
-echo "CPU: $cpu($arch) - $ncores cores"
-echo "GPU: $gpu"
-echo "Mem: $used_mem_mb MB used, $free_mem_mb MB free."
