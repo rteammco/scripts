@@ -16,14 +16,14 @@ function sysinfo_linux {
   hostname=`uname -n`
   
   # Figure out memory:
-  mem_cache=`free -m | grep 'cache:'`
+  mem_cache=`free -m | grep -i 'Mem:'`
   used_mem_mb=`echo $mem_cache | awk '{print $3}'`
   free_mem_mb=`echo $mem_cache | awk '{print $4}'`
   
   echo "$hostname ($os) - Linux"
   echo "CPU: $cpu($arch) - $ncores cores"
   echo "GPU: $gpu"
-  echo "Mem: $used_mem_mb MB used, $free_mem_mb MB free."
+  echo "Mem: $used_mem_mb""M used, $free_mem_mb""M free."
 }
 
 function sysinfo_macos {
