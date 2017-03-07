@@ -12,7 +12,7 @@
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
   echo "ERROR: please provide a src, dest, and host machine name."
   echo "Usage:"
-  echo "  $ cvcscp <path/to/local/src/file> <path/to/remove/file> <remote_host>"
+  echo "  $ cvcscp <path/to/local/src/file> <path/to/remote/file> <remote_host>"
   exit
 fi
 
