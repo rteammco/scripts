@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Gets a file or directory from the given remote path (on the given host) and
+# copies it to the given local directory.
+#
+# Usage (copies to current directory):
+#   cvc-get hostname path/to/remote/dest
+# Or:
+#   cvc-get hostname path/to/remote/dest /path/to/local/dir
+#
+# E.g.
+#   cvc-get computer1 /bin/var/secret_file.txt
+#   cvc-get computer1 /bin/var/secret_file.txt ~/Desktop/secret_file_copy.txt
+
+# Make sure a src, dest, and host are specified.
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo "ERROR: please provide a src dir and host machine name."
+  echo "Usage:"
+  echo "  $ cvc-get <remote_host> <path/to/remote/file> [path/to/local/src/file=.]"
+  exit
+fi
+
+# Make sure that the dest starts with ":" because bash...
+if [[ $2 != :* ]]; then
+  echo "Please begin the source variable with a ':'... because bash, sorry!";
+  exit
+fi
+
+dest="."
+if [ -n "$3" ]; then
+  dest=$3
+fi
+
+port_num=`cvc-get-port $1`
+
+data_path=`scriptdir`/UTA/NonExecutable
+me=`cat $data_path/username.txt`
+login="$me@$1.ices.utexas.edu"
+
+echo "Copying '$2' on $login to '$dest'..."
+copy_cmd="-P $port_num $login$2 $dest"
+scp $copy_cmd

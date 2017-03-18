@@ -3,16 +3,16 @@
 # scp to a CVC lab computer on the right port number.
 #
 # Usage:
-#   cvcscp path/to/local/src path/to/remote/dest hostname
+#   cvc-scp path/to/local/src path/to/remote/dest hostname
 #
 # E.g.
-#   cvcscp ~/Desktop/notes.txt ~/Documents/Work/notes.txt computer1
+#   cvc-scp ~/Desktop/notes.txt ~/Documents/Work/notes.txt computer1
 
 # Make sure a src, dest, and host are specified.
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
   echo "ERROR: please provide a src, dest, and host machine name."
   echo "Usage:"
-  echo "  $ cvcscp <path/to/local/src/file> <path/to/remote/file> <remote_host>"
+  echo "  $ cvc-scp <path/to/local/src/file> <path/to/remote/file> <remote_host>"
   exit
 fi
 
