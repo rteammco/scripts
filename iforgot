@@ -8,7 +8,7 @@ dir=Data/Iremember
 cmd=$1
 if [ -z "$cmd" ];
 then
-    echo "To use THIS command, run ./iforgot cmd (e.g. 'iforgot mail')";
+    echo "To use THIS command, run iforgot cmd (e.g. 'iforgot mail')";
     exit;
 fi
 

@@ -1,0 +1,6 @@
+Start session:
+  $ screen
+Detach screen (put session into background):
+  'ctrl+a', followed by 'd'
+Reattach to the detached screen:
+  $ screen -r
