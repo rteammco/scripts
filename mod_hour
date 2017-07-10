@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# TODO: macOS only for now.
+
+# mod_hour modifies the creation/modified/opened date of a file (namely, photo
+# files) to add or subtract the given number of hours. This is useful if the
+# camera was set to the wrong time zone.
+
+# Usage:
+# e.g. add 6 hours:
+#   $ mod_hour /path/to/file +6
+# e.g. subtract 3 hours:
+#   $ mod_hour /path/to/file -3
+
+if [ -z "$1" ]; then
+  echo "Please provide a file name."
+  exit
+fi
+if [ -z "$2" ]; then
+  echo "Please provide an hour modification value (e.g. '+6')."
+  exit
+fi
+
+created_info=`GetFileInfo $1 | grep -i created`
+if [ -z "$created_info" ]; then
+  echo "Could not get file info for file '$1'."
+  exit
+fi
+
+# "created: 06/20/2017 05:34:32"
+# "_________06/20/2017 05:34:32" (substring 9)
+date_and_time=${created_info:9}
+
+# Take out each time and date component separately:
+# "06/20/2017 05:34:32"
+month=${date_and_time:0:2}    # 06
+day=${date_and_time:3:2}      # 20
+year=${date_and_time:6:4}     # 2017
+hour=${date_and_time:11:2}    # 05
+minute=${date_and_time:14:2}  # 34
+second=${date_and_time:17:2}  # 32
+
+# Modify the hour appropriately.
+modified_hour=$(($hour + $2))
+
+# TODO: Update date if hour < 0 or hour >= 24!
+
+# Pad 0 to the front of the hour if length is than 1.
+if [ ${#modified_hour} -eq 1 ]; then
+  modified_hour="0$modified_hour";
+fi
+
+date_for_touch="$year$month$day$modified_hour$minute"
+date_for_setfile="$month/$day/$year $modified_hour:$minute:$second"
+
+touch -t $date_for_touch $1
+setfile -d "$date_for_setfile" $1
+echo "Modified '$1' to date and time: '$date_for_setfile'."
