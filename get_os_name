@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Prints the name of the OS (e.g. 'Darwin' for macOS or 'Linux' for linux.
+
+os=`uname -sr | awk '{print $1}'`
+echo $os

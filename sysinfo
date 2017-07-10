@@ -5,8 +5,6 @@
 #   https://github.com/lutherush/scripts/blob/master/bash/sysinfo.sh
 
 
-os=`uname -sr | awk '{print $1}'`
-
 function sysinfo_linux {
   # Basic system info:
   cpu=`cat /proc/cpuinfo | grep 'model name' | head -1 | awk '{for (i=4; i<=NF; i++) printf $i " ";}'`
@@ -45,7 +43,7 @@ function sysinfo_macos {
   echo "Mem: $used_mem used, $free_mem free."
 }
 
-if [ $os == 'Darwin' ]; then
+if [ `get_os_name` == 'Darwin' ]; then
   sysinfo_macos
 else
   sysinfo_linux

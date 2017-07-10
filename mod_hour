@@ -1,6 +1,10 @@
 #!/bin/bash
 
 # TODO: macOS only for now.
+if [ `get_os_name` != "Darwin" ]; then
+  echo "Sorry, only macOS supported for now. Quitting."
+  exit
+fi
 
 # mod_hour modifies the creation/modified/opened date of a file (namely, photo
 # files) to add or subtract the given number of hours. This is useful if the
@@ -11,6 +15,7 @@
 #   $ mod_hour /path/to/file +6
 # e.g. subtract 3 hours:
 #   $ mod_hour /path/to/file -3
+
 
 if [ -z "$1" ]; then
   echo "Please provide a file name."
